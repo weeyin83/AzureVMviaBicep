@@ -1,4 +1,5 @@
-on: [push]
+on:
+  workflow_dispatch:
 name: Build VM
 jobs:
   build-and-deploy:
