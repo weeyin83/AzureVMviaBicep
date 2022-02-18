@@ -13,11 +13,6 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-    - uses: azure/CLI@v1
-      with:
-          inlineScript: |
-            az group create -l ${{ secrets.LOCATION }} -n ${{ secrets.RESOURCE_GROUP }}
 
     - uses: azure/CLI@v1
       with:
