@@ -18,6 +18,6 @@ jobs:
       with:
           inlineScript: |
             az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --resource-group ${{ secrets.RESOURCE_GROUP }} \
               --template-file main.bicep \
-              --parameters adminUser=$adminUser adminPassword=$adminPassword vmsize=$vmsize computerName=$computerName vmSku=$vmSku diskSku=$diskSku
+              --parameters adminUser=${{ secrets.ADMINUSER }} adminPassword=${{ secrets.ADMINPASSWORD }} vmsize=${{ secrets.VMSIZE }} computerName=${{ secrets.COMPUTERNAME }} vmSku=${{ secrets.VMSKU }} diskSku=${{ secrets.DISKSKU }}
