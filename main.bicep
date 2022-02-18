@@ -8,13 +8,13 @@ param vm_dns string = 'octopusworker-${uniqueString(resourceGroup().id)}'
 param adminUser string
 
 @secure()
-param adminPassword string = newGuid()
+param adminPassword string
 
 @description('Computer Name')
 param computerName string
 
 @description('VM size for VM')
-param vmsize string = 'Standard_DS2_v2'
+param vmsize string
 
 @description('SKU of the Windows Server')
 @allowed([
@@ -25,7 +25,7 @@ param vmsize string = 'Standard_DS2_v2'
   '2022-datacenter-azure-edition-core'
   '2022-datacenter-azure-edition-core-smalldisk'
 ])
-param vmSku string = '2019-datacenter'
+param vmSku string
 
 @description('SKU of the attached data disk (Standard HDD, Standard SSD or Premium SSD)')
 @allowed([
@@ -33,7 +33,7 @@ param vmSku string = '2019-datacenter'
   'StandardSSD_LRS'
   'Premium_LRS'
 ])
-param diskSku string = 'StandardSSD_LRS'
+param diskSku string
 
 @description('Size of the attached data disk in GB')
 param diskSizeGB int = 256
@@ -88,12 +88,12 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2020-04-01' = {
         }
       }
       {
-        name: 'octopustentacle'
+        name: 'http'
         properties: {
           description: 'description'
           protocol: 'Tcp'
           sourcePortRange: '*'
-          destinationPortRange: '10933'
+          destinationPortRange: '80'
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
@@ -173,7 +173,7 @@ resource octopusworker 'Microsoft.Compute/virtualMachines@2021-07-01' = {
   name: 'octopus-worker'
   location: location
   tags: {
-    displayName: 'Windows Octopus Worker'
+    displayName: 'WIndows Server'
   }
   properties: {
     hardwareProfile: {
