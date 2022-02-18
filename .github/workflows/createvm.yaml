@@ -1,7 +1,23 @@
+on: [push]
+name: Build VM
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
-   az deployment group create \
+    - uses: azure/CLI@v1
+      with:
+          inlineScript: |
+            az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --template-file ./infra/main.bicep \
-              --parameters \
-                name='container-app'
+              --template-file main.bicep \
+              --parameters adminUser=$adminUser adminPassword=$adminPassword vmsize=$vmsize computerName=$computerName vmSku=$vmSku diskSku=$diskSku
