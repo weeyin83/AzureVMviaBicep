@@ -1,0 +1,7 @@
+
+
+   az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                name='container-app'
